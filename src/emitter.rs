@@ -82,7 +82,7 @@ glib::wrapper! {
 
 impl ParticleEmitter {
     pub fn from_config(config: Config<gdk::Texture>) -> Self {
-        let obj: Self = glib::Object::new(&[]);
+        let obj: Self = glib::Object::new();
         obj.imp().ticker.replace(Ticker::with_config(config));
         obj
     }
