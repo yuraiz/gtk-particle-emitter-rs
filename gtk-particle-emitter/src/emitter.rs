@@ -44,13 +44,14 @@ mod imp {
             }
 
             particles.for_each(|particle| {
-                let color_offset = {
-                    let c = particle.color();
-                    let alpha = particle.alpha();
-                    graphene::Vec4::from_float([c.r, c.g, c.b, alpha])
-                };
+                let mut color_matrix = [0.0; 16];
+                color_matrix[15] = particle.alpha();
+                let color_matrix = { graphene::Matrix::from_float(color_matrix) };
 
-                snapshot.push_color_matrix(&graphene::Matrix::from_float([0.0; 16]), &color_offset);
+                let c = particle.color();
+                let color_offset = { graphene::Vec4::from_float([c.r, c.g, c.b, 0.0]) };
+
+                snapshot.push_color_matrix(&color_matrix, &color_offset);
 
                 let (image, rect) = {
                     let particle = &particle;
