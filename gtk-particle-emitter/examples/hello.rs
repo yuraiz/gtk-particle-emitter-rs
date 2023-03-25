@@ -1,6 +1,5 @@
 use gtk::prelude::*;
 use gtk::{gdk, glib};
-use gtk_particle_emitter::Config;
 use gtk_particle_emitter::ParticleEmitter;
 
 const APP_ID: &str = "com.github.yuraiz.ParticleHello";
@@ -12,10 +11,7 @@ fn main() {
 }
 
 fn build_ui(app: &gtk::Application) {
-    let emitter = ParticleEmitter::from_config(Config {
-        particle_images: images(),
-        ..Default::default()
-    });
+    let emitter = ParticleEmitter::new(Default::default(), images());
 
     let window = gtk::ApplicationWindow::builder()
         .application(app)

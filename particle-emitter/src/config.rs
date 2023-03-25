@@ -30,7 +30,7 @@ pub struct Bounds<T> {
 }
 
 #[derive(Debug)]
-pub struct Config<Img> {
+pub struct Config {
     // Particle properties
     pub alpha: Interval<f32>,
     pub scale: Interval<f32>,
@@ -46,7 +46,6 @@ pub struct Config<Img> {
     pub lifetime: Bounds<Duration>,
     // blend mode
     pub custom_ease: Option<fn(f32) -> f32>,
-    pub particle_images: Vec<Img>,
 
     // Emitter properties
     pub spawn_frequency: Duration,
@@ -55,7 +54,7 @@ pub struct Config<Img> {
     pub spawn_area: SpawnArea,
 }
 
-impl<Img> Default for Config<Img> {
+impl Default for Config {
     fn default() -> Self {
         Self {
             speed: Interval {
@@ -100,10 +99,8 @@ impl<Img> Default for Config<Img> {
                 width: 1000.0,
                 height: 0.0,
             },
-            // spawn_area: SpawnArea::Point(100.0, 100.0),
-            max_particles: 200000,
 
-            particle_images: Vec::new(),
+            max_particles: 200000,
         }
     }
 }

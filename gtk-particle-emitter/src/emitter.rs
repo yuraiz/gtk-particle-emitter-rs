@@ -11,7 +11,8 @@ mod imp {
 
     #[derive(Default, Debug)]
     pub struct ParticleEmitter {
-        pub(super) ticker: RefCell<Ticker<gdk::Texture>>,
+        pub(super) ticker: RefCell<Ticker>,
+        pub(super) textures: RefCell<Vec<gdk::Texture>>,
     }
 
     #[glib::object_subclass]
@@ -36,6 +37,11 @@ mod imp {
             let ticker = self.ticker.borrow();
             let particles = ticker.particles();
 
+            let textures = self.textures.borrow();
+            if textures.is_empty() {
+                return;
+            }
+
             particles.for_each(|particle| {
                 let color_offset = {
                     let c = particle.color();
@@ -48,7 +54,10 @@ mod imp {
                 let (image, rect) = {
                     let particle = &particle;
                     let (x, y) = particle.coords();
-                    let image = particle.image();
+
+                    let image_index = particle.image_index();
+                    let image = &textures[image_index % textures.len()];
+
                     let scale = particle.scale();
 
                     let width = image.width() as f32 * scale;
@@ -74,9 +83,10 @@ glib::wrapper! {
 }
 
 impl ParticleEmitter {
-    pub fn from_config(config: Config<gdk::Texture>) -> Self {
+    pub fn new(config: Config, textures: Vec<gdk::Texture>) -> Self {
         let obj: Self = glib::Object::new();
         obj.imp().ticker.replace(Ticker::with_config(config));
+        obj.imp().textures.replace(textures);
         obj
     }
 }

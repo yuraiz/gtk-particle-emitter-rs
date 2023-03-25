@@ -6,15 +6,15 @@ use std::collections::VecDeque;
 use std::time::{Duration, Instant};
 
 #[derive(Debug)]
-pub struct Ticker<T> {
+pub struct Ticker {
     creation_time: Instant,
     last_tick_time: Duration,
     spawned: u128,
-    pub config: Config<T>,
+    pub config: Config,
     pub particle_states: VecDeque<ParticleState>,
 }
 
-impl<T> Default for Ticker<T> {
+impl Default for Ticker {
     fn default() -> Self {
         Self {
             spawned: 0,
@@ -26,15 +26,15 @@ impl<T> Default for Ticker<T> {
     }
 }
 
-impl<T> Ticker<T> {
-    pub fn particles(&self) -> Particles<impl Iterator<Item = &ParticleState>, T> {
+impl Ticker {
+    pub fn particles(&self) -> Particles<impl Iterator<Item = &ParticleState>> {
         Particles {
             states: self.particle_states.iter(),
             config: &self.config,
         }
     }
 
-    pub fn with_config(config: Config<T>) -> Self {
+    pub fn with_config(config: Config) -> Self {
         Self {
             config,
             ..Default::default()
@@ -82,7 +82,7 @@ impl<T> Ticker<T> {
         particle: &mut ParticleState,
         elapsed: Duration,
         delta: Duration,
-        config: &Config<T>,
+        config: &Config,
     ) {
         particle.refresh_progress(elapsed, config.custom_ease);
 

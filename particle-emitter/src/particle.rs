@@ -2,19 +2,19 @@ use crate::config::Config;
 use crate::particle_state::ParticleState;
 type Rgb = rgb::RGB<f32>;
 
-pub struct Particles<'a, I, T>
+pub struct Particles<'a, I>
 where
     I: Iterator<Item = &'a ParticleState>,
 {
     pub(crate) states: I,
-    pub(crate) config: &'a Config<T>,
+    pub(crate) config: &'a Config,
 }
 
-impl<'a, I, T> Iterator for Particles<'a, I, T>
+impl<'a, I> Iterator for Particles<'a, I>
 where
     I: Iterator<Item = &'a ParticleState>,
 {
-    type Item = Particle<'a, T>;
+    type Item = Particle<'a>;
 
     fn next(&mut self) -> Option<Self::Item> {
         let state = self.states.next()?;
@@ -26,12 +26,12 @@ where
 }
 
 #[derive(Debug)]
-pub struct Particle<'a, T> {
+pub struct Particle<'a> {
     state: &'a ParticleState,
-    config: &'a Config<T>,
+    config: &'a Config,
 }
 
-impl<'a, T> Particle<'a, T> {
+impl<'a> Particle<'a> {
     pub fn color(&self) -> Rgb {
         self.config.color.interpolate(self.state.progress)
     }
@@ -49,9 +49,7 @@ impl<'a, T> Particle<'a, T> {
         self.config.scale.interpolate(self.state.progress)
     }
 
-    pub fn image(&self) -> &T {
-        let images = &self.config.particle_images;
-        let index = self.state.image_index % images.len();
-        &images[index]
+    pub fn image_index(&self) -> usize {
+        self.state.image_index
     }
 }

@@ -18,7 +18,7 @@ pub struct ParticleState {
 }
 
 impl ParticleState {
-    pub fn new<T>(creation_time: Duration, config: &Config<T>) -> Self {
+    pub fn new(creation_time: Duration, config: &Config) -> Self {
         let lifetime = {
             let Bounds { min, max } = config.lifetime;
             ((max - min).mul_f32(random())) + min
