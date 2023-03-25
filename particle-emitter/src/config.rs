@@ -3,7 +3,7 @@ use std::time::Duration;
 pub use crate::spawn_area::SpawnArea;
 pub type Rgb = rgb::RGB<f32>;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Interval<T> {
     pub start: T,
     pub end: T,
@@ -23,13 +23,13 @@ impl Interval<Rgb> {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Bounds<T> {
     pub min: T,
     pub max: T,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Config {
     // Particle properties
     pub alpha: Interval<f32>,

@@ -1,7 +1,7 @@
 use rand::random;
 use std::f32::consts::PI;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum SpawnArea {
     Point(f32, f32),
     Rectangle {
