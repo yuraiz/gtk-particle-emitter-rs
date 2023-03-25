@@ -90,4 +90,16 @@ impl ParticleEmitter {
         obj.imp().textures.replace(textures);
         obj
     }
+
+    pub fn config(&self) -> Config {
+        self.imp().ticker.borrow().config.clone()
+    }
+
+    pub fn set_config(&self, config: Config) {
+        self.imp().ticker.borrow_mut().config = config;
+    }
+
+    pub fn update_config<F: Fn(&Config)>(&self, f: F) {
+        f(&self.imp().ticker.borrow_mut().config)
+    }
 }
