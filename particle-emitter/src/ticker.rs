@@ -1,5 +1,5 @@
 use crate::config::Config;
-use crate::particle::{Particle, Particles};
+use crate::particle::Particles;
 use crate::particle_state::ParticleState;
 
 use std::collections::VecDeque;

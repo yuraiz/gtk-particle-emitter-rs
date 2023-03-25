@@ -1,16 +1,9 @@
-use std::time::Duration;
+use particle_emitter::*;
 
-use crate::config::Bounds;
-use crate::config::Config;
-use crate::config::Interval;
-use crate::spawn_area::SpawnArea;
-use crate::ticker::Ticker;
 use gtk::glib;
 use gtk::prelude::*;
 use gtk::subclass::prelude::*;
 use gtk::{gdk, graphene};
-
-type Rgb = rgb::RGB<f32>;
 
 mod imp {
     use super::*;

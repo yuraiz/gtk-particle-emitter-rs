@@ -1,7 +1,7 @@
 use std::time::Duration;
 
 use crate::spawn_area::SpawnArea;
-type Rgb = rgb::RGB<f32>;
+pub type Rgb = rgb::RGB<f32>;
 
 #[derive(Debug)]
 pub struct Interval<T> {
@@ -84,7 +84,7 @@ impl<Img> Default for Config<Img> {
 
             color: Interval {
                 start: Rgb::new(30.0 / 255.0, 196.0 / 255.0, 247.0 / 255.0),
-                end: Rgb::new(168.0 / 255.0, 5.0 / 255.0, 255.0 / 255.0),
+                end: Rgb::new(168.0 / 255.0, 5.0 / 255.0, 1.0),
             },
 
             lifetime: Bounds {

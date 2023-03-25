@@ -1,11 +1,6 @@
-[package]
-name = "gtk-particle-emitter"
-version = "0.1.0"
-edition = "2021"
+[workspace]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[dependencies]
-gtk = { version = "0.6", package = "gtk4" }
-rand = "0.8.5"
-rgb = "0.8.34"
+members = [
+    "gtk-particle-emitter",
+    "particle-emitter",
+]

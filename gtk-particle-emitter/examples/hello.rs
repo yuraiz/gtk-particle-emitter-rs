@@ -3,7 +3,7 @@ use gtk::{gdk, glib};
 use gtk_particle_emitter::Config;
 use gtk_particle_emitter::ParticleEmitter;
 
-const APP_ID: &str = "com.github.yuraiz.RltHello";
+const APP_ID: &str = "com.github.yuraiz.ParticleHello";
 
 fn main() {
     let app = gtk::Application::builder().application_id(APP_ID).build();
