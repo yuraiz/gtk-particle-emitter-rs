@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use crate::spawn_area::SpawnArea;
+pub use crate::spawn_area::SpawnArea;
 pub type Rgb = rgb::RGB<f32>;
 
 #[derive(Debug)]

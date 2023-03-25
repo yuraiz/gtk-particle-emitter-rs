@@ -1,4 +1,5 @@
-use particle_emitter::*;
+use particle_emitter::config::*;
+use particle_emitter::ticker::Ticker;
 
 use gtk::glib;
 use gtk::prelude::*;
