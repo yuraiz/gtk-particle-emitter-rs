@@ -57,7 +57,7 @@ impl Ticker {
         if elapsed < config.emitter_lifetime {
             let count_to_spawn = elapsed.as_nanos() / config.spawn_frequency.as_nanos();
 
-            for _ in 0..count_to_spawn - *spawned {
+            for _ in 0..count_to_spawn.saturating_sub(*spawned) {
                 particles.push_front(ParticleState::new(elapsed, config));
             }
 

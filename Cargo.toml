@@ -1,6 +1,7 @@
 [workspace]
 
 members = [
+    "editor",
     "gtk-particle-emitter",
     "particle-emitter",
 ]

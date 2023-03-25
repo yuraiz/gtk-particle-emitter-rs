@@ -100,7 +100,7 @@ impl ParticleEmitter {
         self.imp().ticker.borrow_mut().config = config;
     }
 
-    pub fn update_config<F: Fn(&Config)>(&self, f: F) {
-        f(&self.imp().ticker.borrow_mut().config)
+    pub fn update_config<F: Fn(&mut Config)>(&self, f: F) {
+        f(&mut self.imp().ticker.borrow_mut().config)
     }
 }
