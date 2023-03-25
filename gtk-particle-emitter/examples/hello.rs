@@ -1,6 +1,5 @@
 use gtk::prelude::*;
-use gtk::{gdk, glib};
-use gtk_particle_emitter::ParticleEmitter;
+use gtk_particle_emitter::{helpers::texture_for_icon, Config, Interval, ParticleEmitter};
 
 const APP_ID: &str = "com.github.yuraiz.ParticleHello";
 
@@ -11,7 +10,25 @@ fn main() {
 }
 
 fn build_ui(app: &gtk::Application) {
-    let emitter = ParticleEmitter::new(Default::default(), images());
+    let textures = [
+        "folder-symbolic",
+        "folder-documents-symbolic",
+        "image-x-generic-symbolic",
+    ]
+    .into_iter()
+    .map(|s| texture_for_icon(s, 32))
+    .collect();
+
+    let emitter = ParticleEmitter::new(
+        Config {
+            scale: Interval {
+                start: 0.5,
+                end: 1.0,
+            },
+            ..Config::default()
+        },
+        textures,
+    );
 
     let window = gtk::ApplicationWindow::builder()
         .application(app)
@@ -20,19 +37,4 @@ fn build_ui(app: &gtk::Application) {
         .child(&emitter)
         .build();
     window.present();
-}
-
-fn image(width: i32, height: i32) -> gdk::Texture {
-    gdk::MemoryTexture::new(
-        width,
-        height,
-        gdk::MemoryFormat::R8g8b8,
-        &glib::Bytes::from_owned(vec![255; (width * height) as usize * 3]),
-        width as usize * 3,
-    )
-    .upcast()
-}
-
-fn images() -> Vec<gdk::Texture> {
-    vec![image(18, 18), image(20, 14), image(14, 20)]
 }
